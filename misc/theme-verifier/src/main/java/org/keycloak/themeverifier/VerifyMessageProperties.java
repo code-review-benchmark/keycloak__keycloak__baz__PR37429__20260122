@@ -155,8 +155,12 @@ public class VerifyMessageProperties {
                 value = value.replaceFirst(Pattern.quote(englishMatcher.group()), "");
             } else {
                 messages.add("Didn't find anchor tag " + matcher.group() + " in original string");
-                break;
+                return value;
             }
+        }
+        // All anchors in the translation matched, but the English source may contain more anchors than the translation
+        if (englishMatcher.find()) {
+            messages.add("Missing anchor tag " + englishMatcher.group() + " in translated string");
         }
         return value;
     }

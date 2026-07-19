@@ -51,6 +51,12 @@ class VerifyMessagePropertiesTest {
         MatcherAssert.assertThat(verify, Matchers.hasItem(Matchers.containsString("Didn't find anchor tag")));
     }
 
+    @Test
+    void verifyMissingAnchorsDetected() throws MojoExecutionException {
+        List<String> verify = getFile("missingAnchor_de.properties").verify();
+        MatcherAssert.assertThat(verify, Matchers.hasItem(Matchers.containsString("Missing anchor tag")));
+    }
+
     private static VerifyMessageProperties getFile(String fixture) {
         URL resource = VerifyMessageProperties.class.getResource("/" + fixture);
         if (resource == null) {
